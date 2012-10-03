@@ -9,7 +9,6 @@ Source0:        http://veromix-plasmoid.googlecode.com/files/veromix_%{version}.
 
 BuildRequires:  kde-filesystem
 BuildRequires:  kde-workspace-devel
-BuildRequires:  qt4-devel
 BuildRequires:  plasma-scriptengine-python
 BuildRequires:  pyxdg
 BuildRequires:  dbus-python
@@ -18,6 +17,7 @@ BuildRequires:  kdesdk-scripts
 BuildRequires:  ladspa-swh-plugins
 BuildRequires:  gettext
 
+BuildArch:      noarch
 
 %description
 KDE (Plasma) applet for a mixer for the Pulseaudio sound server.
