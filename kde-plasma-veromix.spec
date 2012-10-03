@@ -31,13 +31,23 @@ make %{?_smp_mflags}
 
 
 %install
-%make_install
+make install-plasmoid DESTDIR=$RPM_BUILD_ROOT
 %find_lang veromix
 
+%post
+/bin/touch --no-create %{_datadir}/icons/hicolor &>/dev/null || :
+
+%postun
+if [ $1 -eq 0 ] ; then
+    /bin/touch --no-create %{_datadir}/icons/hicolor &>/dev/null
+    /usr/bin/gtk-update-icon-cache -f %{_datadir}/icons/hicolor &>/dev/null || :
+fi
+
+%posttrans
+/usr/bin/gtk-update-icon-cache -f %{_datadir}/icons/hicolor &>/dev/null || :
 
 %files -f veromix.lang
 %doc Changelog COPYING
-%{_datadir}/applications/veromix.desktop
 %{_datadir}/dbus-1/services/org.veromix.pulseaudio.*.service
 %{_datadir}/icons/veromix.png
 %{_kde4_datadir}/kde4/apps/plasma/plasmoids/veromix-plasmoid
@@ -46,5 +56,5 @@ make %{?_smp_mflags}
 
 
 %changelog
-* Wed Oct 03 2012 Vasiliy N. Glazov <vascom2@gmail.com> 1.5.1-1.R
+* Wed Oct 03 2012 Vasiliy N. Glazov <vascom2@gmail.com> 0.18.3-1.R
 - Initial release
